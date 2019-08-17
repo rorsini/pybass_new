@@ -1,10 +1,9 @@
 import React from 'react';
-//const { Paper, Set, Rect } = require('react-raphael');
-import {getColor} from '../lib/Utils';
+// import {getColor} from '../lib/Utils';
 
-const {Raphael, Paper, Set, Circle, Ellipse, Image, Rect, Text, Path, Line} = require('react-raphael');
+const {Paper, Set, Circle, Rect, Text, Path} = require('react-raphael');
 
-const Bass = ({scale, style}) => {
+const Bass = ({scale, display_style}) => {
 
     let fretboard_length = 1070;
     let fretboard_width = 100;
@@ -89,7 +88,7 @@ const Bass = ({scale, style}) => {
     const fret_marker_radius = 7;
     const fret_marker_color = '#000';
     const fret_marker_opacity = '1';
-    const position_color = 'green';
+    // const position_color = 'green';
 
 
     const drawNote = (key_index, xpos, ypos, label, note_color, text_color, scale_degree, stroke_color) => {
@@ -98,7 +97,7 @@ const Bass = ({scale, style}) => {
         let elements = [];
 
         let stroke_width = 1;
-        if (scale_degree == 1) {
+        if (scale_degree === 1) {
             stroke_width = 3;
         }
         elements.push(<Rect x={xpos - 11} y={ypos - 10} width={20} height={20} r={5} attr={
@@ -113,7 +112,7 @@ const Bass = ({scale, style}) => {
 
         let fontSize = '13px';
         let text_ypos = ypos - 2;
-        if (label.length == 2) {
+        if (label.length === 2) {
             fontSize = '10px';
             text_ypos += 1;
             text_color = '#eee';
@@ -130,7 +129,7 @@ const Bass = ({scale, style}) => {
     }
 
 
-    function drawNotes(note_list, style) {
+    function drawNotes(note_list, display_style) {
         let elements = [];
         let scale_degree = 1;
         let key_index = 0;
@@ -145,16 +144,16 @@ const Bass = ({scale, style}) => {
                 let text_color = 'black';
                 let stroke_color = note_name_stroke_color;
 
-                if (style && (style == "degrees" || style == "chord")) {
+                if (display_style && (display_style === "degrees" || display_style === "chord")) {
 
-                    if (style == "chord") {
-                        if (scale_degree % 2 == 0) {
+                    if (display_style === "chord") {
+                        if (scale_degree % 2 === 0) {
                             continue;
                         }
                     }
 
                     text_color = '#eee';
-                    if (scale_degree == 1) {
+                    if (scale_degree === 1) {
                         note_color = scale_degree_root_color;
                         stroke_color = scale_degree_root_stroke_color;
                         text_color = '#000';
@@ -164,7 +163,7 @@ const Bass = ({scale, style}) => {
                         stroke_color = scale_degree_stroke_color;
                     }
                 } else {
-                    if (scale_degree == 1) {
+                    if (scale_degree === 1) {
                         stroke_color = note_name_root_stroke_color;
                     }
                 }
@@ -183,9 +182,6 @@ const Bass = ({scale, style}) => {
         }
         return elements;
     }
-
-    let xOffSet = 4;
-    let yOffSet = 4;
 
     return (
         <div>
@@ -240,7 +236,7 @@ const Bass = ({scale, style}) => {
                                 //     <Circle x={} y={} r={} attr={} />
                                 // )
 
-                                if (fret_num == 3) {
+                                if (fret_num === 3) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -252,7 +248,7 @@ const Bass = ({scale, style}) => {
                                 }
                                 ;
 
-                                if (fret_num == 5) {
+                                if (fret_num === 5) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -264,7 +260,7 @@ const Bass = ({scale, style}) => {
                                 }
                                 ;
 
-                                if (fret_num == 7) {
+                                if (fret_num === 7) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -276,7 +272,7 @@ const Bass = ({scale, style}) => {
                                 }
                                 ;
 
-                                if (fret_num == 9) {
+                                if (fret_num === 9) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -288,7 +284,7 @@ const Bass = ({scale, style}) => {
                                 }
                                 ;
 
-                                if (fret_num == 12) {
+                                if (fret_num === 12) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 4)}
                                                 r={fret_marker_radius} attr={{
@@ -307,7 +303,7 @@ const Bass = ({scale, style}) => {
                                     );
                                 }
                                 ;
-                                if (fret_num == 15) {
+                                if (fret_num === 15) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -318,7 +314,7 @@ const Bass = ({scale, style}) => {
                                     );
                                 }
                                 ;
-                                if (fret_num == 17) {
+                                if (fret_num === 17) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -329,7 +325,7 @@ const Bass = ({scale, style}) => {
                                     );
                                 }
                                 ;
-                                if (fret_num == 19) {
+                                if (fret_num === 19) {
                                     elements.push(
                                         <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
                                                 r={fret_marker_radius} attr={{
@@ -355,6 +351,11 @@ const Bass = ({scale, style}) => {
                                     'stroke-width': 2,
                                     opacity: '0.5'
                                 }}/>);
+
+                                // fret pos debug:
+                                // elements.push(
+                                //     <Text x={d + 14} y={4} text={d} attr={{fill: position_color}}/>
+                                // );
 
                                 previous_d = d;
                             }
@@ -382,7 +383,7 @@ const Bass = ({scale, style}) => {
                     }
                     {
                         (() => {
-                            return drawNotes(scale, style);
+                            return drawNotes(scale, display_style);
                         })()
                     }
 

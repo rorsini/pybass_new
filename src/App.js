@@ -10,9 +10,9 @@ console.log(getMajorScale('A'));
 const App = () => {
     return (
         <div>
-            <Bass scale={getMajorScale('A')} style={'chord'} />
+            <Bass scale={getMajorScale('A')} display_style={'chord'} />
 
-            <Bass scale={getMajorScale('A')} style={'degrees'} />
+            <Bass scale={getMajorScale('A')} display_style={'degrees'} />
 
             <Piano scale={getMajorScale('G')} />
             <Piano scale={getMinorScale('A')} />

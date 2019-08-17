@@ -6,7 +6,6 @@ const { Paper, Set, Rect } = require('react-raphael');
 const Piano = ({ scale }) => {
 
   let scale_index;
-  let note_index;
 
   var chord_tones = [];
   for (scale_index in scale) {
