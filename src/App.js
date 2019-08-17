@@ -1,11 +1,14 @@
 import React from 'react';
 import Piano from './components/Piano';
+import Bass from './components/Bass';
 import { getMajorScale,getMinorScale,getMajorChord,getMinorChord } from './lib/Utils';
 import './App.css';
 
 const App = () => {
   return (
     <div>
+      <Bass />
+
       <Piano scale={getMajorScale('G')} />
       <Piano scale={getMinorScale('A')} />
       <Piano scale={getMajorChord('E')} />

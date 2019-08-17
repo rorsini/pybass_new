@@ -1,41 +1,12 @@
 import React from 'react';
-const { Paper,Set,Rect } = require('react-raphael');
+import { getColor } from '../lib/Utils';
+const { Paper, Set, Rect } = require('react-raphael');
 // const { Raphael,Paper,Set,Circle,Ellipse,Image,Rect,Text,Path,Line } = require('react-raphael');
 
 const Piano = ({ scale }) => {
 
   let scale_index;
   let note_index;
-
-  function getColor(note, scale) {
-      let notes = note;
-
-      if ( typeof note == "string" ) {
-          notes = [note];
-      }
-      for ( note_index in notes ) {
-          note = notes[note_index];
-          for ( scale_index in scale ) {
-              if ( scale[scale_index] === note ) {
-                  if (scale_index === 0) {
-                      //return "#8833ff";
-                      return "#CC0000";
-                  }
-                  if ( note.length > 1 ) {
-                      return "#1199ff";
-                  } else {
-                      return "#77aaff";
-                  }
-              }
-          }
-      }
-      
-      if ( note.length > 1 ) {
-          return "#000";
-      } else {
-          return "#fff";
-      }
-  }
 
   var chord_tones = [];
   for (scale_index in scale) {
