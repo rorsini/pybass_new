@@ -1,20 +1,25 @@
 import React from 'react';
 import Piano from './components/Piano';
 import Bass from './components/Bass';
-import { getMajorScale,getMinorScale,getMajorChord,getMinorChord } from './lib/Utils';
+import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
 
-const App = () => {
-  return (
-    <div>
-      <Bass />
+console.log("getMajorScale:");
+console.log(getMajorScale('A'));
 
-      <Piano scale={getMajorScale('G')} />
-      <Piano scale={getMinorScale('A')} />
-      <Piano scale={getMajorChord('E')} />
-      <Piano scale={getMinorChord('Ab')} />
-    </div>
-  );
+const App = () => {
+    return (
+        <div>
+            <Bass scale={getMajorScale('A')} style={'chord'} />
+
+            <Bass scale={getMajorScale('A')} style={'degrees'} />
+
+            <Piano scale={getMajorScale('G')} />
+            <Piano scale={getMinorScale('A')} />
+            <Piano scale={getMajorChord('E')} />
+            <Piano scale={getMinorChord('Ab')} />
+        </div>
+    );
 };
 
 //  <Set>    
