@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.3.2",
     "raphael": "^2.2.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-raphael": "^0.9.0",
     "react-scripts": "3.0.1",
+    "styled-components": "^4.3.2",
     "styled-jss": "^2.2.3"
   },
   "scripts": {

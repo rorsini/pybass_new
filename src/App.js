@@ -1,17 +1,18 @@
 import React from 'react';
 import Piano from './components/Piano';
 import Bass from './components/Bass';
+import ModeMenu from './components/ModeMenu';
+import BassOptionsMenu from './components/BassOptionsMenu';
 import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
-
-console.log("getMajorScale:");
-console.log(getMajorScale('A'));
 
 const App = () => {
     return (
         <div>
-            <Bass scale={getMajorScale('A')} display_style={'chord'} />
+            <BassOptionsMenu />
+            <ModeMenu />
 
+            <Bass scale={getMajorScale('A')} display_style={'chord'} />
             <Bass scale={getMajorScale('A')} display_style={'degrees'} />
 
             <Piano scale={getMajorScale('G')} />

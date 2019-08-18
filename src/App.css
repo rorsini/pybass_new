@@ -126,13 +126,13 @@ select {
 /* div { text-align: center; }  */
 #logo {
     position: relative;
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
     margin-left: 40px;
     margin-bottom: 20px;
-    font-size: 4em; 
+    font-size: 4em;
+    color: #373440;
     font-family: Verdana,Helvetica,Arial,sans-serif;
-    /* font-weight: bold; */
 }   
 
 
