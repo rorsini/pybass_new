@@ -13,6 +13,7 @@ const App = () => {
 
   const [bassMode, setBassMode] = React.useState('Ionian');
   const [bassNote, setBassNote] = React.useState('C');
+  const [displayStyle, setDisplayStyle] = React.useState('notes');
   console.log("bassMode: " + bassMode);
   console.log("bassNote: " + bassNote);
 
@@ -66,10 +67,9 @@ const App = () => {
     <div>
       <h4><code>scale: {JSON.stringify(scale)}</code></h4>
 
-      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} />
+      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle} />
 
-      <Bass scale={[...scale]} display_style={'chord'} />
-      {/*<Bass scale={getMajorScale('A')} display_style={'degrees'} />*/}
+      <Bass scale={[...scale]} display_style={displayStyle} />
 
       <Piano scale={[...scale]} />
       {/*<Piano scale={getMinorScale('A')} />*/}

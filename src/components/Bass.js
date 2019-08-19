@@ -189,10 +189,6 @@ const Bass = ({scale, display_style}) => {
         <Set>
           {
             (() => {
-            })()
-          }
-          {
-            (() => {
               return [
                 // background
                 <Rect x={-10} y={0} width={fb_length + 8} height={fb_width - 1} r={10}

@@ -4,7 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import { notes, modes } from '../lib/Utils';
+import { notes, modes, display_styles } from '../lib/Utils';
 
 const BootstrapInput = withStyles(theme => ({
   root: {
@@ -55,9 +55,11 @@ export default function BassOptionsMenu(props) {
   const classes = useStyles();
   const [mode, setMode] = React.useState('');
   const [note, setNote] = React.useState('');
+  const [style, setStyle] = React.useState('');
 
   props.setBassMode(mode);
   props.setBassNote(note);
+  props.setDisplayStyle(style);
 
   const handleNoteChange = event => {
     setNote(event.target.value);
@@ -65,6 +67,10 @@ export default function BassOptionsMenu(props) {
 
   const handleModeChange = event => {
     setMode(event.target.value);
+  };
+
+  const handleStyleChange = event => {
+    setStyle(event.target.value);
   };
 
   return (
@@ -95,6 +101,21 @@ export default function BassOptionsMenu(props) {
           {
             Object.keys(modes).map((mode) => {
               return <option value={modes[mode]}>{mode}</option>;
+            })
+          }
+        </NativeSelect>
+      </FormControl>
+      <FormControl className={classes.margin}>
+        <InputLabel htmlFor="age-customized-native-simple">Style</InputLabel>
+        <NativeSelect
+          value={style}
+          onChange={handleStyleChange}
+          input={<BootstrapInput name="mode" id="age-customized-native-simple" />}
+        >
+          <option value="" />
+          {
+            display_styles.map((style) => {
+              return <option value={style}>{style}</option>;
             })
           }
         </NativeSelect>

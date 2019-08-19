@@ -73,3 +73,9 @@ export const notes = {
   'G':       'G',
   'G# / Ab': 'G#'
 };
+
+export const display_styles = [
+  'notes',
+  'chord',
+  'degrees'
+];
