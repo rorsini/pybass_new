@@ -5,22 +5,55 @@ import ModeMenu from './components/ModeMenu';
 import BassOptionsMenu from './components/BassOptionsMenu';
 import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
+import gotScales from 'got-scales'
 
 const App = () => {
-    return (
-        <div>
-            <BassOptionsMenu />
-            <ModeMenu />
 
-            <Bass scale={getMajorScale('A')} display_style={'chord'} />
-            <Bass scale={getMajorScale('A')} display_style={'degrees'} />
+  const [bassMode, setBassMode] = React.useState('Ionian');
+  const [bassNote, setBassNote] = React.useState('C');
+  console.log("bassMode: " + bassMode);
+  console.log("bassNote: " + bassNote);
 
-            <Piano scale={getMajorScale('G')} />
-            <Piano scale={getMinorScale('A')} />
-            <Piano scale={getMajorChord('E')} />
-            <Piano scale={getMinorChord('Ab')} />
-        </div>
-    );
+  // console.log("How to use:");
+  // How to use
+  // var gMajorScale = gotScales.note('G');
+  var aCustomScale = gotScales.note(bassNote);
+
+  const fancyScale = aCustomScale.scale([...bassMode], true).sortedNotesArray;
+
+  console.log("fancyScale");
+  console.log(fancyScale);
+
+  console.log("getMajorScale('A')");
+  console.log(getMajorScale('A'));
+  // console.log(aCustomScale.scale(bassMode, true).getNotes());
+
+
+  // console.log(gMajorScale.scale('major').getNotes()); // ['G','A','B','C','D','E','F# / Gb','G']
+  // console.log(aCustomScale.scale([0, 3, 7, 10, 11], true).getNotes()); // [ 'A', 'C', 'E', 'G', 'G# / Ab' ]
+
+  // console.log("Chords:");
+  // Chords
+  // var cMajorChord = gotScales.chord('Cmaj'); // Can be 'C' or 'CMaj'
+  // var aMinorChord = gotScales.chord('Am'); // Can be 'Am' or 'Amin'
+  // console.log(cMajorChord.getNotes()); // ['C','E','G']
+  // console.log(aMinorChord.getNotes()); // ['A','C','E']
+
+  return (
+    <div>
+      <h4><code>fancyScale: {JSON.stringify(fancyScale)}</code></h4>
+      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} />
+      <ModeMenu />
+
+      <Bass scale={getMajorScale('A')} display_style={'chord'} />
+      <Bass scale={getMajorScale('A')} display_style={'degrees'} />
+
+      <Piano scale={getMajorScale('G')} />
+      <Piano scale={getMinorScale('A')} />
+      <Piano scale={getMajorChord('E')} />
+      <Piano scale={getMinorChord('Ab')} />
+    </div>
+  );
 };
 
 //  <Set>    

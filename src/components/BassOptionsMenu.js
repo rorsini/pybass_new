@@ -4,8 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import { notes, modes } from '../lib/Utils';
 
 const BootstrapInput = withStyles(theme => ({
   root: {
@@ -52,40 +51,50 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function BassOptionsMenu() {
+export default function BassOptionsMenu(props) {
   const classes = useStyles();
   const [mode, setMode] = React.useState('');
+  const [note, setNote] = React.useState('');
 
-  console.log("mode:");
-  console.log(mode);
+  props.setBassMode(mode);
+  props.setBassNote(note);
 
-  const handleChange = event => {
-    setMode(event.target.value);
+  const handleNoteChange = event => {
+    setNote(event.target.value);
   };
 
-  const modes = [
-    'Ionian',
-    'Dorian',
-    'Phrygian',
-    'Lydian',
-    'Mixolydian',
-    'Aeolian',
-    'Locrian'
-  ];
+  const handleModeChange = event => {
+    setMode(event.target.value);
+  };
 
   return (
     <form className={classes.root} autoComplete="off">
       <FormControl className={classes.margin}>
-        <InputLabel htmlFor="age-customized-native-simple">Mode</InputLabel>
+        <InputLabel htmlFor="age-customized-native-simple">Note</InputLabel>
         <NativeSelect
-          value={mode}
-          onChange={handleChange}
+          value={note}
+          onChange={handleNoteChange}
           input={<BootstrapInput name="mode" id="age-customized-native-simple" />}
         >
           <option value="" />
           {
-            modes.map((mode) => {
-              return <option value={mode}>{mode}</option>;
+            notes.map((note) => {
+              return <option value={note}>{note}</option>;
+            })
+          }
+        </NativeSelect>
+      </FormControl>
+      <FormControl className={classes.margin}>
+        <InputLabel htmlFor="age-customized-native-simple">Mode</InputLabel>
+        <NativeSelect
+          value={mode}
+          onChange={handleModeChange}
+          input={<BootstrapInput name="mode" id="age-customized-native-simple" />}
+        >
+          <option value="" />
+          {
+            Object.keys(modes).map((mode) => {
+              return <option value={modes[mode]}>{mode}</option>;
             })
           }
         </NativeSelect>

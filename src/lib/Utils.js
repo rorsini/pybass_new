@@ -1,5 +1,7 @@
 import gotScales from 'got-scales'
 
+console.log(gotScales);
+
 export const getMajorScale = (note) => {
   return gotScales.note(note).scale('major').getNotes().map((n) => n.substring(0, 2));
 };
@@ -44,4 +46,25 @@ export const getColor = (note, scale) => {
   } else {
     return "#fff";
   }
-}
+};
+
+// console.log(aCustomScale.scale([0, 3, 7, 10, 11], true).getNotes())
+export const modes = {
+  'Ionian': [0, 3, 5, 7],
+  'Dorian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Phrygian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Lydian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Mixolydian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Aeolian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Locrian': [0, 1, 2, 3, 4, 5, 6, 7]
+};
+
+export const notes = [
+  'A',
+  'B#',
+  'C',
+  'Db',
+  'E',
+  'F',
+  'G'
+];
