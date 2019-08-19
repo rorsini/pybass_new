@@ -1,13 +1,15 @@
 import React from 'react';
 import Piano from './components/Piano';
 import Bass from './components/Bass';
-import ModeMenu from './components/ModeMenu';
 import BassOptionsMenu from './components/BassOptionsMenu';
 import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
 import gotScales from 'got-scales'
 
 const App = () => {
+
+  console.log("gotScales:");
+  console.log(gotScales);
 
   const [bassMode, setBassMode] = React.useState('Ionian');
   const [bassNote, setBassNote] = React.useState('C');
@@ -19,13 +21,34 @@ const App = () => {
   // var gMajorScale = gotScales.note('G');
   var aCustomScale = gotScales.note(bassNote);
 
+  const stuff = aCustomScale.scale([...bassMode], true).notes;
+  console.log("stuff:");
+  console.log(stuff);
+
+  const cleanStuff = stuff.filter(Boolean);
+  console.log("cleanStuff:");
+  console.log(cleanStuff);
+
+  const finalStuff = cleanStuff.map((x) => {return x.substring(0, 2);} );
+  console.log("finalStuff:");
+  console.log(finalStuff);
+
   const fancyScale = aCustomScale.scale([...bassMode], true).sortedNotesArray;
 
-  console.log("fancyScale");
-  console.log(fancyScale);
+  // console.log("fancyScale");
+  // console.log(fancyScale);
 
-  console.log("getMajorScale('A')");
-  console.log(getMajorScale('A'));
+  // console.log("getMajorScale('A')");
+  // console.log(getMajorScale('A'));
+
+  const cleanScale = fancyScale.map((x) => {return x.substring(0, 2);} );
+  console.log("cleanScale:");
+  console.log(cleanScale);
+
+  // const scale = cleanScale;
+  const scale = finalStuff;
+
+
   // console.log(aCustomScale.scale(bassMode, true).getNotes());
 
 
@@ -41,17 +64,17 @@ const App = () => {
 
   return (
     <div>
-      <h4><code>fancyScale: {JSON.stringify(fancyScale)}</code></h4>
+      <h4><code>scale: {JSON.stringify(scale)}</code></h4>
+
       <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} />
-      <ModeMenu />
 
-      <Bass scale={getMajorScale('A')} display_style={'chord'} />
-      <Bass scale={getMajorScale('A')} display_style={'degrees'} />
+      <Bass scale={[...scale]} display_style={'chord'} />
+      {/*<Bass scale={getMajorScale('A')} display_style={'degrees'} />*/}
 
-      <Piano scale={getMajorScale('G')} />
-      <Piano scale={getMinorScale('A')} />
-      <Piano scale={getMajorChord('E')} />
-      <Piano scale={getMinorChord('Ab')} />
+      <Piano scale={[...scale]} />
+      {/*<Piano scale={getMinorScale('A')} />*/}
+      {/*<Piano scale={getMajorChord('E')} />*/}
+      {/*<Piano scale={getMinorChord('Ab')} />*/}
     </div>
   );
 };

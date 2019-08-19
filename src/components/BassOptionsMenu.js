@@ -78,8 +78,8 @@ export default function BassOptionsMenu(props) {
         >
           <option value="" />
           {
-            notes.map((note) => {
-              return <option value={note}>{note}</option>;
+            Object.keys(notes).map((note) => {
+              return <option value={notes[note]}>{note}</option>;
             })
           }
         </NativeSelect>

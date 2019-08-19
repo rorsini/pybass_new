@@ -50,21 +50,26 @@ export const getColor = (note, scale) => {
 
 // console.log(aCustomScale.scale([0, 3, 7, 10, 11], true).getNotes())
 export const modes = {
-  'Ionian': [0, 3, 5, 7],
-  'Dorian': [0, 1, 2, 3, 4, 5, 6, 7],
-  'Phrygian': [0, 1, 2, 3, 4, 5, 6, 7],
-  'Lydian': [0, 1, 2, 3, 4, 5, 6, 7],
+  'Ionian':     [0, 3, 5, 7],
+  'Dorian':     [0, 1, 2, 3, 4, 5, 6, 7],
+  'Phrygian':   [0],
+  'Lydian':     [0, 1, 2, 3, 4, 5, 6, 7],
   'Mixolydian': [0, 1, 2, 3, 4, 5, 6, 7],
-  'Aeolian': [0, 1, 2, 3, 4, 5, 6, 7],
-  'Locrian': [0, 1, 2, 3, 4, 5, 6, 7]
+  'Aeolian':    [0, 1, 2, 3, 4, 5, 6, 7],
+  'Locrian':    [0, 1, 2, 3, 4, 5, 6, 7]
 };
 
-export const notes = [
-  'A',
-  'B#',
-  'C',
-  'Db',
-  'E',
-  'F',
-  'G'
-];
+export const notes = {
+  'A':       'A',
+  'A# / Bb': 'A#',
+  'B':       'B',
+  'C':       'C',
+  'C# / Db': 'C#',
+  'D':       'D',
+  'D# / Eb': 'D#',
+  'E':       'E',
+  'F':       'F',
+  'F# / Gb': 'F#',
+  'G':       'G',
+  'G# / Ab': 'G#'
+};
