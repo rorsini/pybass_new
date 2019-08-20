@@ -9,46 +9,6 @@
     <script type="text/javascript" src="/static/javascript/py_bass.js"></script>
     <script type="text/javascript" src="/static/javascript/raphael.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-
-    <script language="javascript" type="text/javascript">
-
-      window.onload = function () {
-
-        var pybass_data = [];
-
-        $.getJSON("http://pybass.com:8080/data",
-          {format: "json"},
-          function (data) {
-            pybass_data = data;
-          }
-        );
-
-        var fretboard_length = 1070;
-        var fretboard_width = 100;
-        var fretboard_paper = new Raphael(document.getElementById('canvas_container'), fretboard_length, fretboard_width);
-        var fretboard = new PyBass.Fretboard(fretboard_paper, fretboard_length, fretboard_width);
-
-        var piano_length = 600;
-        var piano_width = 96;
-        var piano_paper = new Raphael(document.getElementById('piano_container'), piano_length, piano_width);
-        var piano = new PyBass.Piano(piano_paper, ${str(data['notes']) | n});
-
-        function drawScale(note_list, style) {
-          drawNotes(fretboard_paper, fretboard, note_list, style);
-        }
-
-        drawScale(${str(data['notes']) | n}, '${str(data['
-        scale_display
-        ']) | n}'
-      )
-        ;
-      }
-
-      function submitForm() {
-        document.scale_select.submit();
-      }
-
-    </script>
 </head>
 <body>
 
@@ -56,32 +16,14 @@
     <p id="logo">pybass.com</p>
 </div>
 
-<div class="dot" id="dot"></div>
-
 <div id="bass">
-
-
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
 </div>
 
 <div id="footer">
-    <p>
-        The tech:
-        <a href="http://pylonshq.com/">Pylons</a>,
-        <a href="http://jquery.com/">JQuery</a>,
-        <a href="http://raphaeljs.com/">Raphaël</a> (<a href="http://www.w3.org/TR/SVG/paths.html#PathData">SVG</a>),
-        <a href="http://lilypond.org/">LilyPond</a>, and
-        <a href="http://code.google.com/p/mingus/">mingus</a>, and
-        <a href="http://mycolormusic.com/color-music/">color-music</a>.
-    </p>
-    <p>
-        <strong>Much</strong> more to come! Stay tuned (<a href="http://blog.tupleshop.com/rss">RSS</a>)...
-    </p>
-
     <p id="copy">
-        <span>by Rob Orsini &copy; 2019 <a href="http://tupleshop.com">TupleShop</a>, Inc.</span>
+        <span> &copy; 2019 Rob Orsin <a href="http://tupleshop.com">TupleShop</a>, Inc.</span>
     </p>
 </div>
 
