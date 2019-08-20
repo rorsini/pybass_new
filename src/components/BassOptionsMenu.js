@@ -4,6 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
+import styled from 'styled-components';
 import { notes, modes, display_styles } from '../lib/Utils';
 
 const BootstrapInput = withStyles(theme => ({
@@ -73,7 +74,12 @@ export default function BassOptionsMenu(props) {
     setStyle(event.target.value);
   };
 
+  const OptionsContainer = styled.div`
+    text-align: center;
+  `;
+
   return (
+    <OptionsContainer>
     <form className={classes.root} autoComplete="off">
       <FormControl className={classes.margin}>
         <InputLabel htmlFor="age-customized-native-simple">Note</InputLabel>
@@ -106,7 +112,7 @@ export default function BassOptionsMenu(props) {
         </NativeSelect>
       </FormControl>
       <FormControl className={classes.margin}>
-        <InputLabel htmlFor="age-customized-native-simple">Style</InputLabel>
+        <InputLabel htmlFor="age-customized-native-simple">Display Style</InputLabel>
         <NativeSelect
           value={style}
           onChange={handleStyleChange}
@@ -121,5 +127,6 @@ export default function BassOptionsMenu(props) {
         </NativeSelect>
       </FormControl>
     </form>
+    </OptionsContainer>
   );
 }

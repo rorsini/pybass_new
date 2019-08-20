@@ -2,7 +2,9 @@ import React from 'react';
 import Piano from './components/Piano';
 import Bass from './components/Bass';
 import BassOptionsMenu from './components/BassOptionsMenu';
-import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
+import styled from 'styled-components';
+import {modes} from './lib/Utils';
+//import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
 import gotScales from 'got-scales'
 
@@ -11,67 +13,34 @@ const App = () => {
   console.log("gotScales:");
   console.log(gotScales);
 
-  const [bassMode, setBassMode] = React.useState('Ionian');
+  const [bassMode, setBassMode] = React.useState('');
   const [bassNote, setBassNote] = React.useState('C');
   const [displayStyle, setDisplayStyle] = React.useState('notes');
-  console.log("bassMode: " + bassMode);
-  console.log("bassNote: " + bassNote);
 
-  // console.log("How to use:");
-  // How to use
-  // var gMajorScale = gotScales.note('G');
-  var aCustomScale = gotScales.note(bassNote);
+  const scale = bassMode ? gotScales.note(bassNote).scale(bassMode.split(","), true).notes.map(s => {
+    return s && s.substring(0, 2)
+  }) : [];
 
-  const stuff = aCustomScale.scale([...bassMode], true).notes;
-  console.log("stuff:");
-  console.log(stuff);
+  console.log("scale");
+  console.log(scale);
 
-  const cleanStuff = stuff.filter(Boolean);
-  console.log("cleanStuff:");
-  console.log(cleanStuff);
+  console.log("displayStyle:");
+  console.log(displayStyle);
 
-  const finalStuff = cleanStuff.map((x) => {return x.substring(0, 2);} );
-  console.log("finalStuff:");
-  console.log(finalStuff);
-
-  const fancyScale = aCustomScale.scale([...bassMode], true).sortedNotesArray;
-
-  // console.log("fancyScale");
-  // console.log(fancyScale);
-
-  // console.log("getMajorScale('A')");
-  // console.log(getMajorScale('A'));
-
-  const cleanScale = fancyScale.map((x) => {return x.substring(0, 2);} );
-  console.log("cleanScale:");
-  console.log(cleanScale);
-
-  // const scale = cleanScale;
-  const scale = finalStuff;
-
-
-  // console.log(aCustomScale.scale(bassMode, true).getNotes());
-
-
-  // console.log(gMajorScale.scale('major').getNotes()); // ['G','A','B','C','D','E','F# / Gb','G']
-  // console.log(aCustomScale.scale([0, 3, 7, 10, 11], true).getNotes()); // [ 'A', 'C', 'E', 'G', 'G# / Ab' ]
-
-  // console.log("Chords:");
-  // Chords
-  // var cMajorChord = gotScales.chord('Cmaj'); // Can be 'C' or 'CMaj'
-  // var aMinorChord = gotScales.chord('Am'); // Can be 'Am' or 'Amin'
-  // console.log(cMajorChord.getNotes()); // ['C','E','G']
-  // console.log(aMinorChord.getNotes()); // ['A','C','E']
 
   return (
     <div>
-      <h4><code>scale: {JSON.stringify(scale)}</code></h4>
+      <h3>
+        &nbsp;Choose some options:
+        <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle}/>
+      </h3>
+      <Bass scale={scale} display_style={displayStyle}/>
 
-      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle} />
+      <center>
+        <Piano scale={scale}/>
+      </center>
 
-      <Bass scale={[...scale]} display_style={displayStyle} />
 
-      <Piano scale={[...scale]} />
       {/*<Piano scale={getMinorScale('A')} />*/}
       {/*<Piano scale={getMajorChord('E')} />*/}
       {/*<Piano scale={getMinorChord('Ab')} />*/}

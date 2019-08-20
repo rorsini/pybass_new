@@ -21,18 +21,18 @@ export const getMinorChord = (note) => {
 export const getColor = (note, scale) => {
   let notes = note;
 
-  if ( typeof note == "string" ) {
+  if (typeof note == "string") {
     notes = [note];
   }
-  for ( let note_index in notes ) {
+  for (let note_index in notes) {
     note = notes[note_index];
-    for ( let scale_index in scale ) {
-      if ( scale[scale_index] === note ) {
+    for (let scale_index in scale) {
+      if (scale[scale_index] === note) {
         if (scale_index === 0) {
           //return "#8833ff";
           return "#CC0000";
         }
-        if ( note.length > 1 ) {
+        if (note.length > 1) {
           return "#1199ff";
         } else {
           return "#77aaff";
@@ -41,36 +41,35 @@ export const getColor = (note, scale) => {
     }
   }
 
-  if ( note.length > 1 ) {
+  if (note.length > 1) {
     return "#000";
   } else {
     return "#fff";
   }
 };
 
-// console.log(aCustomScale.scale([0, 3, 7, 10, 11], true).getNotes())
 export const modes = {
-  'Ionian':     [0, 3, 5, 7],
-  'Dorian':     [0, 1, 2, 3, 4, 5, 6, 7],
-  'Phrygian':   [0],
-  'Lydian':     [0, 1, 2, 3, 4, 5, 6, 7],
-  'Mixolydian': [0, 1, 2, 3, 4, 5, 6, 7],
-  'Aeolian':    [0, 1, 2, 3, 4, 5, 6, 7],
-  'Locrian':    [0, 1, 2, 3, 4, 5, 6, 7]
+  'Ionian':     "0,2,4,5,7,9,11",
+  'Dorian':     "0,2,3,5,7,9,10",
+  'Phrygian':   "0,1,3,5,7,8,10",
+  'Lydian':     "0,2,4,6,7,9,11",
+  'Mixolydian': "0,2,4,5,7,9,10",
+  'Aeolian':    "0,2,3,5,7,8,10",
+  'Locrian':    "0,1,3,5,6,8,10"
 };
 
 export const notes = {
-  'A':       'A',
+  'A': 'A',
   'A# / Bb': 'A#',
-  'B':       'B',
-  'C':       'C',
+  'B': 'B',
+  'C': 'C',
   'C# / Db': 'C#',
-  'D':       'D',
+  'D': 'D',
   'D# / Eb': 'D#',
-  'E':       'E',
-  'F':       'F',
+  'E': 'E',
+  'F': 'F',
   'F# / Gb': 'F#',
-  'G':       'G',
+  'G': 'G',
   'G# / Ab': 'G#'
 };
 
