@@ -10,10 +10,6 @@ import './App.css';
 import gotScales from 'got-scales'
 
 const App = () => {
-
-  console.log("gotScales:");
-  console.log(gotScales);
-
   const [bassMode, setBassMode] = React.useState('');
   const [bassNote, setBassNote] = React.useState('C');
   const [displayStyle, setDisplayStyle] = React.useState('notes');
@@ -22,11 +18,10 @@ const App = () => {
     return s && s.substring(0, 2)
   }) : [];
 
-  console.log("scale");
-  console.log(scale);
-
-  console.log("displayStyle:");
-  console.log(displayStyle);
+  console.log("bassNote: " + bassNote);
+  console.log("bassModd: " + bassMode);
+  console.log("scale: " + scale);
+  console.log("displayStyle:" + displayStyle);
 
   const PianoContainer = styled.div`
     padding: 0px 0px 0px 40px;
