@@ -38,53 +38,13 @@ const App = () => {
     font-weight: bold;
   `;
 
-  const NoteButtonContainer = styled.div`
-    display: flexbox;
-  `;
-
-  const NoteButton = styled.button`
-    font-weight: bold;
-    font-size: 1.8em;
-    padding: 10p 10p 10p 10px;
-    margin: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: #008CBA;
-    border-radius: 8px;
-    border-color: black;
-    flex: 1;
-  `;
-
-  const handleNoteChange = (note) => {
-    console.log("clicked: " + note);
-    setBassNote(note);
-    setBassMode('0,2,4,6');
-  };
-
-  console.log("bassNote2: " + bassNote);
-
   return (
     <div>
       <InstructionsContainer>
         Choose some options:
       </InstructionsContainer>
 
-      <NoteButtonContainer>
-        <NoteButton onClick={(e) => {
-          handleNoteChange('C');
-        }}>C</NoteButton>
-        <NoteButton onClick={(e) => {
-          handleNoteChange('D');
-        }}>D</NoteButton>
-        <NoteButton onClick={(e) => {
-          handleNoteChange('E');
-        }}>E</NoteButton>
-        <NoteButton onClick={(e) => {
-          handleNoteChange('F');
-        }}>F</NoteButton>
-      </NoteButtonContainer>
-
-      {/*<BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle}/>*/}
+      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle}/>
       <Bass scale={scale} display_style={displayStyle}/>
 
       <PianoContainer>
