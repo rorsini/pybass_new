@@ -22,6 +22,7 @@ const App = () => {
     return s && s.substring(0, 2)
   }) : [];
 
+  console.log("bassNote: " + bassNote);
   console.log("bassMode: " + bassMode);
   console.log("scale: " + scale);
   console.log("displayStyle: " + displayStyle);
