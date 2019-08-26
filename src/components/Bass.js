@@ -9,18 +9,28 @@ const {Paper, Set, Circle, Rect, Text, Path} = require('react-raphael');
 const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   let fretboard_length = 1070;
-  let fretboard_width = 400;
+
+
+  let fretboard_width;
+  let numberOfStrings;
+  if (displayInstrument === 'guitar'){
+    fretboard_width = 152;
+    numberOfStrings = 6;
+  } else {
+    fretboard_width = 100;
+    numberOfStrings = 4;
+  }
 
   let fb_length = fretboard_length;
   let fb_width = fretboard_width;
 
   function hPosOffset(pos) {
-    return pos - 24;
+    return pos - 12;
   }
 
-  function vPosOffset(pos) {
-    return pos - 10;
-  }
+  // function vPosOffset(pos) {
+  //   return pos - 10;
+  // }
 
   // const fret = [30, 114, 194, 269,
   //   339, 406, 469, 529,
@@ -35,17 +45,11 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     339, 406, 469, 529,
     585, 638, 688, 735,
     780, 822, 862, 899,
-    935, 968, 1000, 1029, 1058];
+    935, 968, 1000, 1029, 1058].map(hPosOffset);
   
     const strng = [12.5, 37.5, 62.5, 87.5, 112.5, 137.5];
 
   function mapCoords(coords) {
-    // console.log("coords: ");
-    // console.log(coords);
-    // console.log("fret[coords[1]]: ");
-    // console.log(fret[coords[1]]);
-    // console.log("strng[coords[0]]: ");
-    // console.log(strng[coords[0]]);
     return [fret[coords[1]], strng[coords[0]]];
   }
 
@@ -77,12 +81,12 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   const note_name_root_stroke_color = '#000';
 
   const guitar_notes_matrix = [
-    ['E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
-    ['B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ,'G#' ,'A' ,'A#'],
-    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#'],
-    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#'],
-    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#'],
-    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
+    ['E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#','E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B', 'C' ],
+    ['B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ,'G#' ,'A' ,'A#','B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ],
+    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#','G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D', 'D#'],
+    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#','D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A', 'A#'],
+    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#','A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E', 'F' ],
+    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#','E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B', 'C' ],
   ];
 
  let guitar_notes_with_positions = {};
@@ -91,7 +95,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     let this_note_name = note_list[i];
     for (let pos_string = 0; pos_string <= 5; pos_string++) {
       let guitar_string = guitar_notes_matrix[pos_string];
-      for (let pos_fret = 0; pos_fret < 12; pos_fret++) {
+      for (let pos_fret = 0; pos_fret < 21; pos_fret++) {
         if (guitar_string[pos_fret] === this_note_name) {
           positions.push([pos_string, pos_fret]);
         }
@@ -101,10 +105,10 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   }
 
   const bass_notes_matrix = [
-    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#'],
-    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#'],
-    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#'],
-    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
+    ['G', 'G#', 'A', 'A#','B', 'C' ,'C#' ,'D', 'D#','E' ,'F' ,'F#','G', 'G#', 'A', 'A#','B', 'C' ,'C#' ,'D','D#'],
+    ['D', 'D#', 'E', 'F' ,'F#','G' ,'G#' ,'A', 'A#','B' ,'C' ,'C#','D', 'D#', 'E', 'F' ,'F#','G' ,'G#' ,'A','A#'],
+    ['A', 'A#', 'B', 'C' ,'C#','D' ,'D#' ,'E', 'F', 'F#','G' ,'G#','A', 'A#', 'B', 'C' ,'C#','D' ,'D#' ,'E','F' ],
+    ['E', 'F' , 'F#','G' ,'G#','A' ,'A#' ,'B', 'C', 'C#','D' ,'D#','E', 'F' , 'F#','G' ,'G#','A' ,'A#' ,'B','C' ],
   ];
 
  let bass_notes_with_positions = {};
@@ -113,7 +117,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     let this_note_name = note_list[i];
     for (let pos_string = 0; pos_string <= 3; pos_string++) {
       let bass_string = bass_notes_matrix[pos_string];
-      for (let pos_fret = 0; pos_fret < 12; pos_fret++) {
+      for (let pos_fret = 0; pos_fret < 21; pos_fret++) {
         if (bass_string[pos_fret] === this_note_name) {
           positions.push([pos_string, pos_fret]);
         }
@@ -126,7 +130,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   for (let i = 0; i < note_list.length; i++) {
     let this_note_name = note_list[i];
-    console.log("displayInstrument: " + displayInstrument);
+    // console.log("displayInstrument: " + displayInstrument);
     if (displayInstrument === 'guitar') {
       notes[this_note_name] = {'coords': guitar_notes_with_positions[this_note_name].map(mapCoords)};
     } else {
@@ -134,52 +138,10 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     }
   }
 
-  console.log("notes: ");
-  console.log(notes);
-  // debugger;
-
-  // notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
-  // notes['D']  = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
-  // notes['D#'] = {'coords': [[1, 2], [6, 3], [8, 1], [11, 4], [13, 2], [18, 3], [20, 1]].map(mapCoords)};
-  // notes['E']  = {'coords': [[0, 4], [2, 2], [7, 3], [9, 1], [12, 4], [14, 2], [19, 3]].map(mapCoords)};
-  // notes['F']  = {'coords': [[1, 4], [3, 2], [8, 3], [10, 1], [13, 4], [15, 2], [20, 3]].map(mapCoords)};
-  // notes['F#'] = {'coords': [[2, 4], [4, 2], [9, 3], [11, 1], [14, 4], [16, 2]].map(mapCoords)};
-  // notes['G']  = {'coords': [[0, 1], [3, 4], [5, 2], [10, 3], [12, 1], [15, 4], [17, 2]].map(mapCoords)};
-  // notes['G#'] = {'coords': [[1, 1], [4, 4], [6, 2], [11, 3], [13, 1], [16, 4], [18, 2]].map(mapCoords)};
-  // notes['A']  = {'coords': [[0, 3], [2, 1], [5, 4], [7, 2], [12, 3], [14, 1], [17, 4], [19, 2]].map(mapCoords)};
-  // notes['A#'] = {'coords': [[1, 3], [3, 1], [6, 4], [8, 2], [13, 3], [15, 1], [18, 4], [20, 2]].map(mapCoords)};
-  // notes['B']  = {'coords': [[2, 3], [4, 1], [7, 4], [9, 2], [14, 3], [16, 1], [19, 4]].map(mapCoords)};
-
-  // notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
-  // notes['D']  = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
-  // notes['D#'] = {'coords': [[1, 2], [6, 3], [8, 1], [11, 4], [13, 2], [18, 3], [20, 1]].map(mapCoords)};
-  // notes['E']  = {'coords': [[0, 4], [2, 2], [7, 3], [9, 1], [12, 4], [14, 2], [19, 3]].map(mapCoords)};
-  // notes['F']  = {'coords': [[1, 4], [3, 2], [8, 3], [10, 1], [13, 4], [15, 2], [20, 3]].map(mapCoords)};
-  // notes['F#'] = {'coords': [[2, 4], [4, 2], [9, 3], [11, 1], [14, 4], [16, 2]].map(mapCoords)};
-  // notes['G']  = {'coords': [[0, 1], [3, 4], [5, 2], [10, 3], [12, 1], [15, 4], [17, 2]].map(mapCoords)};
-  // notes['G#'] = {'coords': [[1, 1], [4, 4], [6, 2], [11, 3], [13, 1], [16, 4], [18, 2]].map(mapCoords)};
-  // notes['A']  = {'coords': [[0, 3], [2, 1], [5, 4], [7, 2], [12, 3], [14, 1], [17, 4], [19, 2]].map(mapCoords)};
-  // notes['A#'] = {'coords': [[1, 3], [3, 1], [6, 4], [8, 2], [13, 3], [15, 1], [18, 4], [20, 2]].map(mapCoords)};
-  // notes['B']  = {'coords': [[2, 3], [4, 1], [7, 4], [9, 2], [14, 3], [16, 1], [19, 4]].map(mapCoords)};
+  // console.log("notes: ");
+  // console.log(notes);
 
 
-  
-  // 6-string guitar note positions (EADGBE):
-  //   TODO:
-  //     instruments['name'].tuning['EADG'].notes['C'] 
-  // notes['C']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['C#'] = {'coords': [[,]] .map(mapCoords)};
-  // notes['D']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['D#'] = {'coords': [[,]] .map(mapCoords)};
-  // notes['E']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['F']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['F#'] = {'coords': [[,]] .map(mapCoords)};
-  // notes['G']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['G#'] = {'coords': [[,]] .map(mapCoords)};
-  // notes['A']  = {'coords': [[,]] .map(mapCoords)};
-  // notes['A#'] = {'coords': [[,]] .map(mapCoords)};
-  // notes['B']  = {'coords': [[,]] .map(mapCoords)};
-  
   // note aliases:
   notes['Eb'] = notes['D#'];
   notes['Fb'] = notes['E'];
@@ -191,7 +153,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   // let fb_length = 1070;
   // let fb_width = 100;
-  const string_spacing = fb_width / 4;
+  const string_spacing = 25;
   const total_frets = 20;
   const distance_above_nut = 30;
   const fret_marker_radius = 7;
@@ -312,7 +274,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     <div>
       <Paper width={fretboard_length} height={fretboard_width + 50}>
         <Set>
-          {/* {
+          {
             (() => {
               return [
                 // background
@@ -489,7 +451,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
               // Strings:
               let elements = [];
               let this_string_spacing = 12.5;
-              for (let i = 0; i < 4; i += 1) {
+              for (let i = 0; i < numberOfStrings; i++) {
 
                 elements.push(<Path d={"M 0 " + this_string_spacing + " l " + fb_length + " 0"}
                                     attr={{stroke: '#888', 'stroke-width': 4}}/>);
@@ -501,7 +463,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
 
               return elements;
             })()
-          } */}
+          }
           {
             (() => {
               return drawNotes(scale, displayStyle);

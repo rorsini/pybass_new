@@ -55,16 +55,22 @@ const useStyles = makeStyles(theme => ({
 export default function BassOptionsMenu(props) {
 
   const classes = useStyles();
-  const [mode, setMode] = React.useState('');
-  const [note, setNote] = React.useState('');
-  const [style, setStyle] = React.useState('')
-  const [instrument, setInstrument] = React.useState('');
+  const [mode, setMode] = React.useState('0,2,4,5,7,9,11');
+  const [note, setNote] = React.useState('C');
+  const [style, setStyle] = React.useState('notes')
+  const [instrument, setInstrument] = React.useState('bass');
+
+  console.log("mode: " + mode);
+  console.log("note: " + note);
+  console.log("style: " + style);
+  console.log("instrument: " + instrument);
 
   props.setBassMode(mode);
   props.setBassNote(note);
   props.setDisplayStyle(style);
   props.setDisplayInstrument(instrument);
 
+  
 
   const handleNoteChange = event => {
     setNote(event.target.value);
