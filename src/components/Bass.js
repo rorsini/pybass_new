@@ -81,12 +81,12 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   const note_name_root_stroke_color = '#000';
 
   const guitar_notes_matrix = [
-    ['E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#','E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B', 'C' ],
-    ['B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ,'G#' ,'A' ,'A#','B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ],
-    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#','G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D', 'D#'],
-    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#','D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A', 'A#'],
-    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#','A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E', 'F' ],
-    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#','E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B', 'C' ],
+    ['E', 'F', 'F#','G', 'G#','A', 'A#','B' ,'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C' ],
+    ['B', 'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C', 'C#','D', 'D#','E', 'F', 'F#','G' ],
+    ['G', 'G#','A', 'A#','B', 'C', 'C#','D' ,'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C', 'C#','D', 'D#'],
+    ['D', 'D#','E', 'F', 'F#','G', 'G#','A' ,'A#','B', 'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#'],
+    ['A', 'A#','B', 'C', 'C#','D', 'D#','E' ,'F', 'F#','G', 'G#','A', 'A#','B', 'C', 'C#','D', 'D#','E', 'F' ],
+    ['E', 'F' ,'F#','G', 'G#','A', 'A#','B' ,'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C' ],
   ];
 
  let guitar_notes_with_positions = {};
@@ -105,10 +105,10 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   }
 
   const bass_notes_matrix = [
-    ['G', 'G#', 'A', 'A#','B', 'C' ,'C#' ,'D', 'D#','E' ,'F' ,'F#','G', 'G#', 'A', 'A#','B', 'C' ,'C#' ,'D','D#'],
-    ['D', 'D#', 'E', 'F' ,'F#','G' ,'G#' ,'A', 'A#','B' ,'C' ,'C#','D', 'D#', 'E', 'F' ,'F#','G' ,'G#' ,'A','A#'],
-    ['A', 'A#', 'B', 'C' ,'C#','D' ,'D#' ,'E', 'F', 'F#','G' ,'G#','A', 'A#', 'B', 'C' ,'C#','D' ,'D#' ,'E','F' ],
-    ['E', 'F' , 'F#','G' ,'G#','A' ,'A#' ,'B', 'C', 'C#','D' ,'D#','E', 'F' , 'F#','G' ,'G#','A' ,'A#' ,'B','C' ],
+    ['G', 'G#','A', 'A#','B', 'C', 'C#','D' ,'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C', 'C#','D', 'D#'],
+    ['D', 'D#','E', 'F', 'F#','G', 'G#','A' ,'A#','B', 'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#'],
+    ['A', 'A#','B', 'C', 'C#','D', 'D#','E' ,'F', 'F#','G', 'G#','A', 'A#','B', 'C', 'C#','D', 'D#','E', 'F' ],
+    ['E', 'F' ,'F#','G', 'G#','A', 'A#','B' ,'C', 'C#','D', 'D#','E', 'F', 'F#','G', 'G#','A', 'A#','B', 'C' ],
   ];
 
  let bass_notes_with_positions = {};
@@ -312,13 +312,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                 let d = Math.round(length - (length / Math.pow(2, ((fret + 1) / 12))) + distance_above_nut);
                 let p = " M " + d + " 0 l 0 " + fb_width;
 
-                // elements.push();
-
-                // <Circle x={} y={} r={} attr={} />
-                // elements.push(
-                //     <Circle x={} y={} r={} attr={} />
-                // )
-
                 if (fret_num === 3) {
                   elements.push(
                     <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
@@ -329,7 +322,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
 
                 if (fret_num === 5) {
                   elements.push(
@@ -341,7 +333,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
 
                 if (fret_num === 7) {
                   elements.push(
@@ -353,7 +344,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
 
                 if (fret_num === 9) {
                   elements.push(
@@ -365,7 +355,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
 
                 if (fret_num === 12) {
                   elements.push(
@@ -385,7 +374,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
+
                 if (fret_num === 15) {
                   elements.push(
                     <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
@@ -396,7 +385,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
+
                 if (fret_num === 17) {
                   elements.push(
                     <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
@@ -407,7 +396,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
+
                 if (fret_num === 19) {
                   elements.push(
                     <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
@@ -418,8 +407,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-                ;
-
 
                 // bass_fret
                 elements.push(<Path d={p} attr={{stroke: '#444', 'stroke-width': 2}}/>);
