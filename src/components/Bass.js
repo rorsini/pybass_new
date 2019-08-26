@@ -6,7 +6,7 @@ import { note_list } from '../lib/Utils';
 
 const {Paper, Set, Circle, Rect, Text, Path} = require('react-raphael');
 
-const Bass = ({scale, display_style}) => {
+const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   let fretboard_length = 1070;
   let fretboard_width = 400;
@@ -85,31 +85,58 @@ const Bass = ({scale, display_style}) => {
     ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
   ];
 
- let notes_with_positions = {};
+ let guitar_notes_with_positions = {};
   for (let i = 0; i < note_list.length; i++) {
     let positions = [];
     let this_note_name = note_list[i];
     for (let pos_string = 0; pos_string <= 5; pos_string++) {
       let guitar_string = guitar_notes_matrix[pos_string];
       for (let pos_fret = 0; pos_fret < 12; pos_fret++) {
-        if (guitar_string[pos_fret] == this_note_name) {
+        if (guitar_string[pos_fret] === this_note_name) {
           positions.push([pos_string, pos_fret]);
         }
       }
     }
-    notes_with_positions[this_note_name] = positions;
+    guitar_notes_with_positions[this_note_name] = positions;
+  }
+
+  const bass_notes_matrix = [
+    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#'],
+    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#'],
+    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#'],
+    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
+  ];
+
+ let bass_notes_with_positions = {};
+  for (let i = 0; i < note_list.length; i++) {
+    let positions = [];
+    let this_note_name = note_list[i];
+    for (let pos_string = 0; pos_string <= 3; pos_string++) {
+      let bass_string = bass_notes_matrix[pos_string];
+      for (let pos_fret = 0; pos_fret < 12; pos_fret++) {
+        if (bass_string[pos_fret] === this_note_name) {
+          positions.push([pos_string, pos_fret]);
+        }
+      }
+    }
+    bass_notes_with_positions[this_note_name] = positions;
   }
 
   let notes = {};
 
   for (let i = 0; i < note_list.length; i++) {
     let this_note_name = note_list[i];
-    notes[this_note_name] = {'coords': notes_with_positions[this_note_name].map(mapCoords)};
+    console.log("displayInstrument: " + displayInstrument);
+    if (displayInstrument === 'guitar') {
+      notes[this_note_name] = {'coords': guitar_notes_with_positions[this_note_name].map(mapCoords)};
+    } else {
+      notes[this_note_name] = {'coords': bass_notes_with_positions[this_note_name].map(mapCoords)};
+    }
   }
 
-  // console.log("notes: ");
-  // console.log(notes);
-  // // debugger;
+  console.log("notes: ");
+  console.log(notes);
+  // debugger;
 
   // notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
   // notes['D']  = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
@@ -211,29 +238,29 @@ const Bass = ({scale, display_style}) => {
   }
 
 
-  function drawNotes(this_scale, display_style) {
+  function drawNotes(this_scale, displayStyle) {
     let elements = [];
     let scale_degree = 1;
     let key_index = 0;
-    console.log("this_scale: " + this_scale);
+    // console.log("this_scale: " + this_scale);
     for (let note_index in this_scale) {
       let note = this_scale[note_index];
-      console.log("note: " + note);
+      // console.log("note: " + note);
       // debugger;
       let note_coords = notes[note]['coords'];
-      console.log("note_coords:");
-      console.log(note_coords);
+      // console.log("note_coords:");
+      // console.log(note_coords);
 
       for (let index in note_coords) {
         let coords = note_coords[index];
         let x_coord = coords[0];
         let y_coord = coords[1];
 
-        console.log("x_coord: ");
-        console.log(x_coord);
+        // console.log("x_coord: ");
+        // console.log(x_coord);
 
-        console.log("y_coord: ");
-        console.log(y_coord);
+        // console.log("y_coord: ");
+        // console.log(y_coord);
 
         let note_color = note_colors[note];
         let note_label = note;
@@ -242,9 +269,9 @@ const Bass = ({scale, display_style}) => {
 
         // debugger;
 
-        if (display_style && (display_style === "degrees" || display_style === "chord")) {
+        if (displayStyle && (displayStyle === "degrees" || displayStyle === "chord")) {
 
-          if (display_style === "chord") {
+          if (displayStyle === "chord") {
             if (scale_degree % 2 === 0) {
               continue;
             }
@@ -477,8 +504,7 @@ const Bass = ({scale, display_style}) => {
           } */}
           {
             (() => {
-              console.log("scale: " + scale);
-              return drawNotes(scale, display_style);
+              return drawNotes(scale, displayStyle);
             })()
           }
 

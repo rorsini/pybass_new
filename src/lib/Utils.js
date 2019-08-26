@@ -97,6 +97,6 @@ export const display_styles = [
 ];
 
 export const display_instruments = {
-  'Guitar (EADGBE)': 'guitar',
-  'Bass (EADG)': 'bass'
+  'Guitar': 'guitar',
+  'Bass': 'bass'
 };

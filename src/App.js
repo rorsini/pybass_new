@@ -12,9 +12,9 @@ import gotScales from 'got-scales'
 const App = () => {
 
   const [bassMode, setBassMode] = React.useState('');
-  const [bassNote, setBassNote] = React.useState('C');
-  const [displayStyle, setDisplayStyle] = React.useState('notes');
-  const [instrument, setInstrument] = React.useState('bass');
+  const [bassNote, setBassNote] = React.useState('');
+  const [displayStyle, setDisplayStyle] = React.useState('');
+  const [displayInstrument, setDisplayInstrument] = React.useState('');
 
   const scale = bassMode ? gotScales.note(bassNote).scale(bassMode.split(","), true).notes.map(s => {
     return s && s.substring(0, 2)
@@ -46,10 +46,9 @@ const App = () => {
         setBassNote={setBassNote} 
         setBassMode={setBassMode} 
         setDisplayStyle={setDisplayStyle}
-        instrument={instrument}
-        setInstrument={setInstrument}
+        setDisplayInstrument={setDisplayInstrument}
         />
-      <Bass scale={scale} display_style={displayStyle}/>
+      <Bass scale={scale} displayInstrument={displayInstrument} displayStyle={displayStyle}/>
 
       <PianoContainer>
         <Piano scale={scale}/>
