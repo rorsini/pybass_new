@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import styled from 'styled-components';
-import { notes, modes, display_styles } from '../lib/Utils';
+import { note_list, modes, display_styles, display_instruments } from '../lib/Utils';
 
 const BootstrapInput = withStyles(theme => ({
   root: {
@@ -53,14 +53,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function BassOptionsMenu(props) {
+
+  let instrument = props.instrument;
+  let setInstrument = props.setDisplayStyle;
   const classes = useStyles();
   const [mode, setMode] = React.useState('');
   const [note, setNote] = React.useState('');
-  const [style, setStyle] = React.useState('');
+  const [style, setStyle] = React.useState('')
 
   props.setBassMode(mode);
   props.setBassNote(note);
   props.setDisplayStyle(style);
+
 
   const handleNoteChange = event => {
     setNote(event.target.value);
@@ -71,6 +75,10 @@ export default function BassOptionsMenu(props) {
   };
 
   const handleStyleChange = event => {
+    setStyle(event.target.value);
+  };
+
+  const handleInstrumentChange = event => {
     setStyle(event.target.value);
   };
 
@@ -90,8 +98,8 @@ export default function BassOptionsMenu(props) {
         >
           <option value="" />
           {
-            Object.keys(notes).map((note) => {
-              return <option value={notes[note]}>{note}</option>;
+            Object.keys(note_list).map(note => {
+              return <option value={note_list[note]}>{note_list[note]}</option>;
             })
           }
         </NativeSelect>
@@ -122,6 +130,21 @@ export default function BassOptionsMenu(props) {
           {
             display_styles.map((style) => {
               return <option value={style}>{style}</option>;
+            })
+          }
+        </NativeSelect>
+      </FormControl>
+      <FormControl className={classes.margin}>
+        <InputLabel htmlFor="age-customized-native-simple">Instrument</InputLabel>
+        <NativeSelect
+          value={instrument}
+          onChange={handleInstrumentChange}
+          input={<BootstrapInput name="mode" id="age-customized-native-simple" />}
+        >
+          <option value="" />
+          {
+            Object.keys(display_instruments).map((instrument) => {
+              return <option value={display_instruments[instrument]}>{instrument}</option>;
             })
           }
         </NativeSelect>

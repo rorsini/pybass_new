@@ -4,28 +4,26 @@ import Bass from './components/Bass';
 import BassOptionsMenu from './components/BassOptionsMenu';
 import styled from 'styled-components';
 import circle from './images/circle.png'
-import {modes} from './lib/Utils';
+// import {modes} from './lib/Utils';
 //import {getMajorScale, getMinorScale, getMajorChord, getMinorChord} from './lib/Utils';
 import './App.css';
 import gotScales from 'got-scales'
 
 const App = () => {
 
-  // console.log("gotScales:");
-  // console.log(gotScales);
-
   const [bassMode, setBassMode] = React.useState('');
   const [bassNote, setBassNote] = React.useState('C');
   const [displayStyle, setDisplayStyle] = React.useState('notes');
+  const [instrument, setInstrument] = React.useState('bass');
 
   const scale = bassMode ? gotScales.note(bassNote).scale(bassMode.split(","), true).notes.map(s => {
     return s && s.substring(0, 2)
   }) : [];
 
-  console.log("bassNote: " + bassNote);
-  console.log("bassMode: " + bassMode);
-  console.log("scale: " + scale);
-  console.log("displayStyle: " + displayStyle);
+  // console.log("bassNote: " + bassNote);
+  // console.log("bassMode: " + bassMode);
+  // console.log("scale: " + scale);
+  // console.log("displayStyle: " + displayStyle);
 
   const PianoContainer = styled.div`
     padding: 0px 0px 0px 40px;
@@ -44,7 +42,13 @@ const App = () => {
         Choose some options:
       </InstructionsContainer>
 
-      <BassOptionsMenu setBassNote={setBassNote} setBassMode={setBassMode} setDisplayStyle={setDisplayStyle}/>
+      <BassOptionsMenu 
+        setBassNote={setBassNote} 
+        setBassMode={setBassMode} 
+        setDisplayStyle={setDisplayStyle}
+        instrument={instrument}
+        setInstrument={setInstrument}
+        />
       <Bass scale={scale} display_style={displayStyle}/>
 
       <PianoContainer>

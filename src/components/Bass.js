@@ -1,12 +1,15 @@
 import React from 'react';
+import gotScales from 'got-scales'
+import { note_list } from '../lib/Utils';
 // import {getColor} from '../lib/Utils';
+// import {modes} from './lib/Utils';
 
 const {Paper, Set, Circle, Rect, Text, Path} = require('react-raphael');
 
 const Bass = ({scale, display_style}) => {
 
   let fretboard_length = 1070;
-  let fretboard_width = 100;
+  let fretboard_width = 400;
 
   let fb_length = fretboard_length;
   let fb_width = fretboard_width;
@@ -19,16 +22,31 @@ const Bass = ({scale, display_style}) => {
     return pos - 10;
   }
 
+  // const fret = [30, 114, 194, 269,
+  //   339, 406, 469, 529,
+  //   585, 638, 688, 735,
+  //   780, 822, 862, 899,
+  //   935, 968, 1000, 1029, 1058].map(hPosOffset);
+
+  // const strng = [12.5, 37.5,
+  //   62.5, 87.5, 112.5, 137.5].map(vPosOffset);
+
   const fret = [30, 114, 194, 269,
     339, 406, 469, 529,
     585, 638, 688, 735,
     780, 822, 862, 899,
-    935, 968, 1000, 1029, 1058].map(hPosOffset);
-
-  const strng = [NaN, 12.5, 37.5, 62.5, 87.5].map(vPosOffset);
+    935, 968, 1000, 1029, 1058];
+  
+    const strng = [12.5, 37.5, 62.5, 87.5, 112.5, 137.5];
 
   function mapCoords(coords) {
-    return [fret[coords[0]], strng[coords[1]]];
+    // console.log("coords: ");
+    // console.log(coords);
+    // console.log("fret[coords[1]]: ");
+    // console.log(fret[coords[1]]);
+    // console.log("strng[coords[0]]: ");
+    // console.log(strng[coords[0]]);
+    return [fret[coords[1]], strng[coords[0]]];
   }
 
   // See "Color Music" for more info on note colors:
@@ -58,27 +76,91 @@ const Bass = ({scale, display_style}) => {
   const note_name_stroke_color = '#4b4b4b';
   const note_name_root_stroke_color = '#000';
 
+  const guitar_notes_matrix = [
+    ['E', 'F' ,'F#','G' ,'G#', 'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
+    ['B', 'C' ,'C#','D' ,'D#' ,'E' ,'F'  ,'F#','G' ,'G#' ,'A' ,'A#'],
+    ['G', 'G#' ,'A','A#' ,'B' ,'C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#'],
+    ['D', 'D#' ,'E','F' ,'F#' ,'G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#'],
+    ['A', 'A#' ,'B','C' ,'C#' ,'D' ,'D#' ,'E' ,'F' ,'F#' ,'G' ,'G#'],
+    ['E', 'F' ,'F#','G' ,'G#' ,'A' ,'A#' ,'B' ,'C' ,'C#' ,'D' ,'D#'],
+  ];
+
+ let notes_with_positions = {};
+  for (let i = 0; i < note_list.length; i++) {
+    let positions = [];
+    let this_note_name = note_list[i];
+    for (let pos_string = 0; pos_string <= 5; pos_string++) {
+      let guitar_string = guitar_notes_matrix[pos_string];
+      for (let pos_fret = 0; pos_fret < 12; pos_fret++) {
+        if (guitar_string[pos_fret] == this_note_name) {
+          positions.push([pos_string, pos_fret]);
+        }
+      }
+    }
+    notes_with_positions[this_note_name] = positions;
+  }
+
   let notes = {};
 
-  notes['C'] = {'coords': [[3, 3], [5, 1], [8, 4], [10, 2], [15, 3], [17, 1], [20, 4]].map(mapCoords)};
-  notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
-  notes['Db'] = notes['C#'];
-  notes['D'] = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
-  notes['D#'] = {'coords': [[1, 2], [6, 3], [8, 1], [11, 4], [13, 2], [18, 3], [20, 1]].map(mapCoords)};
+  for (let i = 0; i < note_list.length; i++) {
+    let this_note_name = note_list[i];
+    notes[this_note_name] = {'coords': notes_with_positions[this_note_name].map(mapCoords)};
+  }
+
+  // console.log("notes: ");
+  // console.log(notes);
+  // // debugger;
+
+  // notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
+  // notes['D']  = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
+  // notes['D#'] = {'coords': [[1, 2], [6, 3], [8, 1], [11, 4], [13, 2], [18, 3], [20, 1]].map(mapCoords)};
+  // notes['E']  = {'coords': [[0, 4], [2, 2], [7, 3], [9, 1], [12, 4], [14, 2], [19, 3]].map(mapCoords)};
+  // notes['F']  = {'coords': [[1, 4], [3, 2], [8, 3], [10, 1], [13, 4], [15, 2], [20, 3]].map(mapCoords)};
+  // notes['F#'] = {'coords': [[2, 4], [4, 2], [9, 3], [11, 1], [14, 4], [16, 2]].map(mapCoords)};
+  // notes['G']  = {'coords': [[0, 1], [3, 4], [5, 2], [10, 3], [12, 1], [15, 4], [17, 2]].map(mapCoords)};
+  // notes['G#'] = {'coords': [[1, 1], [4, 4], [6, 2], [11, 3], [13, 1], [16, 4], [18, 2]].map(mapCoords)};
+  // notes['A']  = {'coords': [[0, 3], [2, 1], [5, 4], [7, 2], [12, 3], [14, 1], [17, 4], [19, 2]].map(mapCoords)};
+  // notes['A#'] = {'coords': [[1, 3], [3, 1], [6, 4], [8, 2], [13, 3], [15, 1], [18, 4], [20, 2]].map(mapCoords)};
+  // notes['B']  = {'coords': [[2, 3], [4, 1], [7, 4], [9, 2], [14, 3], [16, 1], [19, 4]].map(mapCoords)};
+
+  // notes['C#'] = {'coords': [[4, 3], [6, 1], [9, 4], [11, 2], [16, 3], [18, 1]].map(mapCoords)};
+  // notes['D']  = {'coords': [[0, 2], [5, 3], [7, 1], [10, 4], [12, 2], [17, 3], [19, 1]].map(mapCoords)};
+  // notes['D#'] = {'coords': [[1, 2], [6, 3], [8, 1], [11, 4], [13, 2], [18, 3], [20, 1]].map(mapCoords)};
+  // notes['E']  = {'coords': [[0, 4], [2, 2], [7, 3], [9, 1], [12, 4], [14, 2], [19, 3]].map(mapCoords)};
+  // notes['F']  = {'coords': [[1, 4], [3, 2], [8, 3], [10, 1], [13, 4], [15, 2], [20, 3]].map(mapCoords)};
+  // notes['F#'] = {'coords': [[2, 4], [4, 2], [9, 3], [11, 1], [14, 4], [16, 2]].map(mapCoords)};
+  // notes['G']  = {'coords': [[0, 1], [3, 4], [5, 2], [10, 3], [12, 1], [15, 4], [17, 2]].map(mapCoords)};
+  // notes['G#'] = {'coords': [[1, 1], [4, 4], [6, 2], [11, 3], [13, 1], [16, 4], [18, 2]].map(mapCoords)};
+  // notes['A']  = {'coords': [[0, 3], [2, 1], [5, 4], [7, 2], [12, 3], [14, 1], [17, 4], [19, 2]].map(mapCoords)};
+  // notes['A#'] = {'coords': [[1, 3], [3, 1], [6, 4], [8, 2], [13, 3], [15, 1], [18, 4], [20, 2]].map(mapCoords)};
+  // notes['B']  = {'coords': [[2, 3], [4, 1], [7, 4], [9, 2], [14, 3], [16, 1], [19, 4]].map(mapCoords)};
+
+
+  
+  // 6-string guitar note positions (EADGBE):
+  //   TODO:
+  //     instruments['name'].tuning['EADG'].notes['C'] 
+  // notes['C']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['C#'] = {'coords': [[,]] .map(mapCoords)};
+  // notes['D']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['D#'] = {'coords': [[,]] .map(mapCoords)};
+  // notes['E']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['F']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['F#'] = {'coords': [[,]] .map(mapCoords)};
+  // notes['G']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['G#'] = {'coords': [[,]] .map(mapCoords)};
+  // notes['A']  = {'coords': [[,]] .map(mapCoords)};
+  // notes['A#'] = {'coords': [[,]] .map(mapCoords)};
+  // notes['B']  = {'coords': [[,]] .map(mapCoords)};
+  
+  // note aliases:
   notes['Eb'] = notes['D#'];
-  notes['E'] = {'coords': [[0, 4], [2, 2], [7, 3], [9, 1], [12, 4], [14, 2], [19, 3]].map(mapCoords)};
   notes['Fb'] = notes['E'];
-  notes['F'] = {'coords': [[1, 4], [3, 2], [8, 3], [10, 1], [13, 4], [15, 2], [20, 3]].map(mapCoords)};
-  notes['F#'] = {'coords': [[2, 4], [4, 2], [9, 3], [11, 1], [14, 4], [16, 2]].map(mapCoords)};
   notes['Gb'] = notes['F#'];
-  notes['G'] = {'coords': [[0, 1], [3, 4], [5, 2], [10, 3], [12, 1], [15, 4], [17, 2]].map(mapCoords)};
-  notes['G#'] = {'coords': [[1, 1], [4, 4], [6, 2], [11, 3], [13, 1], [16, 4], [18, 2]].map(mapCoords)};
   notes['Ab'] = notes['G#'];
-  notes['A'] = {'coords': [[0, 3], [2, 1], [5, 4], [7, 2], [12, 3], [14, 1], [17, 4], [19, 2]].map(mapCoords)};
-  notes['A#'] = {'coords': [[1, 3], [3, 1], [6, 4], [8, 2], [13, 3], [15, 1], [18, 4], [20, 2]].map(mapCoords)};
   notes['Bb'] = notes['A#'];
-  notes['B'] = {'coords': [[2, 3], [4, 1], [7, 4], [9, 2], [14, 3], [16, 1], [19, 4]].map(mapCoords)};
   notes['Cb'] = notes['B'];
+  notes['Db'] = notes['C#'];
 
   // let fb_length = 1070;
   // let fb_width = 100;
@@ -129,20 +211,36 @@ const Bass = ({scale, display_style}) => {
   }
 
 
-  function drawNotes(note_list, display_style) {
+  function drawNotes(this_scale, display_style) {
     let elements = [];
     let scale_degree = 1;
     let key_index = 0;
-    for (let note in note_list) {
-      let note_name = note_list[note];
-      for (let index in notes[note_name]['coords']) {
-        let pos = notes[note_name]['coords'][index];
-        let fret_num = pos[0] + 10;
-        let string_num = pos[1] + 10;
-        let note_color = note_colors[note_name];
-        let note_label = note_name;
+    console.log("this_scale: " + this_scale);
+    for (let note_index in this_scale) {
+      let note = this_scale[note_index];
+      console.log("note: " + note);
+      // debugger;
+      let note_coords = notes[note]['coords'];
+      console.log("note_coords:");
+      console.log(note_coords);
+
+      for (let index in note_coords) {
+        let coords = note_coords[index];
+        let x_coord = coords[0];
+        let y_coord = coords[1];
+
+        console.log("x_coord: ");
+        console.log(x_coord);
+
+        console.log("y_coord: ");
+        console.log(y_coord);
+
+        let note_color = note_colors[note];
+        let note_label = note;
         let text_color = 'black';
         let stroke_color = note_name_stroke_color;
+
+        // debugger;
 
         if (display_style && (display_style === "degrees" || display_style === "chord")) {
 
@@ -169,8 +267,8 @@ const Bass = ({scale, display_style}) => {
         }
         elements.push(drawNote(
           key_index,
-          fret_num,
-          string_num,
+          x_coord,
+          y_coord,
           String(note_label),
           note_color,
           text_color,
@@ -187,7 +285,7 @@ const Bass = ({scale, display_style}) => {
     <div>
       <Paper width={fretboard_length} height={fretboard_width + 50}>
         <Set>
-          {
+          {/* {
             (() => {
               return [
                 // background
@@ -376,9 +474,10 @@ const Bass = ({scale, display_style}) => {
 
               return elements;
             })()
-          }
+          } */}
           {
             (() => {
+              console.log("scale: " + scale);
               return drawNotes(scale, display_style);
             })()
           }
