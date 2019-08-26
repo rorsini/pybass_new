@@ -28,19 +28,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
     return pos - 12;
   }
 
-  // function vPosOffset(pos) {
-  //   return pos - 10;
-  // }
-
-  // const fret = [30, 114, 194, 269,
-  //   339, 406, 469, 529,
-  //   585, 638, 688, 735,
-  //   780, 822, 862, 899,
-  //   935, 968, 1000, 1029, 1058].map(hPosOffset);
-
-  // const strng = [12.5, 37.5,
-  //   62.5, 87.5, 112.5, 137.5].map(vPosOffset);
-
   const fret = [30, 114, 194, 269,
     339, 406, 469, 529,
     585, 638, 688, 735,
@@ -52,9 +39,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   function mapCoords(coords) {
     return [fret[coords[1]], strng[coords[0]]];
   }
-
-  // See "Color Music" for more info on note colors:
-  // http://mycolormusic.com/2009/07/25/the-chromatic-scale-again/
 
   const note_colors = {
     'C': '#ca0d3c', 'Cb': '#ca0d3c',
@@ -130,17 +114,12 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   for (let i = 0; i < note_list.length; i++) {
     let this_note_name = note_list[i];
-    // console.log("displayInstrument: " + displayInstrument);
     if (displayInstrument === 'guitar') {
       notes[this_note_name] = {'coords': guitar_notes_with_positions[this_note_name].map(mapCoords)};
     } else {
       notes[this_note_name] = {'coords': bass_notes_with_positions[this_note_name].map(mapCoords)};
     }
   }
-
-  // console.log("notes: ");
-  // console.log(notes);
-
 
   // note aliases:
   notes['Eb'] = notes['D#'];
@@ -151,8 +130,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   notes['Cb'] = notes['B'];
   notes['Db'] = notes['C#'];
 
-  // let fb_length = 1070;
-  // let fb_width = 100;
   const string_spacing = 25;
   const total_frets = 20;
   const distance_above_nut = 30;
@@ -161,12 +138,8 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   const fret_marker_opacity = '1';
   // const position_color = 'green';
 
-
   const drawNote = (key_index, xpos, ypos, label, note_color, text_color, scale_degree, stroke_color) => {
-    //let circle = paper.circle(xpos, ypos, 10);
-
     let elements = [];
-
     let stroke_width = 1;
     if (scale_degree === 1) {
       stroke_width = 3;
@@ -180,7 +153,6 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
         'stroke-opacity': 1
       }
     }/>);
-
     let fontSize = '13px';
     let text_ypos = ypos - 2;
     if (label.length === 2) {
@@ -195,50 +167,30 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
         'font-weight': 'bold'
       }
     }/>);
-
     return elements;
   }
-
 
   function drawNotes(this_scale, displayStyle) {
     let elements = [];
     let scale_degree = 1;
     let key_index = 0;
-    // console.log("this_scale: " + this_scale);
     for (let note_index in this_scale) {
       let note = this_scale[note_index];
-      // console.log("note: " + note);
-      // debugger;
       let note_coords = notes[note]['coords'];
-      // console.log("note_coords:");
-      // console.log(note_coords);
-
       for (let index in note_coords) {
         let coords = note_coords[index];
         let x_coord = coords[0];
         let y_coord = coords[1];
-
-        // console.log("x_coord: ");
-        // console.log(x_coord);
-
-        // console.log("y_coord: ");
-        // console.log(y_coord);
-
         let note_color = note_colors[note];
         let note_label = note;
         let text_color = 'black';
         let stroke_color = note_name_stroke_color;
-
-        // debugger;
-
         if (displayStyle && (displayStyle === "degrees" || displayStyle === "chord")) {
-
           if (displayStyle === "chord") {
             if (scale_degree % 2 === 0) {
               continue;
             }
           }
-
           text_color = '#eee';
           if (scale_degree === 1) {
             note_color = scale_degree_root_color;
@@ -407,29 +359,19 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
                     }}/>
                   );
                 }
-
                 // bass_fret
                 elements.push(<Path d={p} attr={{stroke: '#444', 'stroke-width': 2}}/>);
-
                 // bass_fret_shadow
                 elements.push(<Path d={"M " + (d + 1) + " 0 l 0 " + fb_width}
                                     attr={{stroke: '#222', 'stroke-width': 1}}/>);
-
                 // bass_fret_shadow_two
                 elements.push(<Path d={"M " + (d + 2) + " 0 l 0 " + fb_width} attr={{
                   stroke: '#c5a54e',
                   'stroke-width': 2,
                   opacity: '0.5'
                 }}/>);
-
-                // fret pos debug:
-                // elements.push(
-                //     <Text x={d + 14} y={4} text={d} attr={{fill: position_color}}/>
-                // );
-
                 previous_d = d;
               }
-
               return elements;
             })()
           }
@@ -439,24 +381,22 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
               let elements = [];
               let this_string_spacing = 12.5;
               for (let i = 0; i < numberOfStrings; i++) {
-
                 elements.push(<Path d={"M 0 " + this_string_spacing + " l " + fb_length + " 0"}
                                     attr={{stroke: '#888', 'stroke-width': 4}}/>);
-
                 elements.push(<Path d={"M 0 " + (this_string_spacing - 0.5) + " l " + fb_length + " 0"}
                                     attr={{stroke: '#e2e2e2', 'stroke-width': 0.8}}/>);
                 this_string_spacing += string_spacing;
               }
-
               return elements;
             })()
           }
+        </Set>
+        <Set>
           {
             (() => {
               return drawNotes(scale, displayStyle);
             })()
           }
-
         </Set>
       </Paper>
     </div>
