@@ -60,7 +60,9 @@ export const modes = {
   'Locrian':    '0,1,3,5,6,8,10',
   'Major Pentatonic': '0,2,4,7,9',
   'Blues Scale':      '0,3,5,6,7,10',
-  'Minor Pentatonic': '0,3,5,7,10'
+  'Minor Pentatonic': '0,3,5,7,10',
+  'Harmonic Minor': '0,2,3,5,7,8,11',
+  'Phrygian Dominant': '0,1,4,5,7,8,10'
 };
 
 export const note_names = {

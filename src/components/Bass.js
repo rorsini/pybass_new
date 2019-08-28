@@ -224,7 +224,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
 
   return (
     <Paper width={fretboard_length} height={fretboard_width + 50}>
-      <Set>
+      <Set key={1}>
         {
           (() => {
             return [
@@ -390,7 +390,7 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
           })()
         }
       </Set>
-      <Set>
+      <Set key={2}>
         {
           (() => {
             return drawNotes(scale, displayStyle);
