@@ -1,5 +1,5 @@
 import React from 'react';
-import gotScales from 'got-scales'
+// import gotScales from 'got-scales'
 import { note_list } from '../lib/Utils';
 // import {getColor} from '../lib/Utils';
 // import {modes} from './lib/Utils';
@@ -223,183 +223,181 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
   }
 
   return (
-    <div>
-      <Paper width={fretboard_length} height={fretboard_width + 50}>
-        <Set>
-          {
-            (() => {
-              return [
-                // background
-                <Rect x={-10} y={0} width={fb_length + 8} height={fb_width - 1} r={10}
-                      attr={{
-                        stroke: '#d7b14a',
-                        'stroke-width': '4',
-                        gradient: '90-#e1b94e-#ffdd83'
-                      }}/>,
-                // background_bottom_border
-                <Path d={"M 0 " + (fb_width - 1) + " l " + (fb_length - 7) + " 0"}
-                      attr={{stroke: '#be8b00', 'stroke-width': '3'}}/>,
-                // nut
-                <Rect x={distance_above_nut} y={0} width={5} height={fb_width}
-                      attr={{stroke: 'none', fill: '#444'}}/>,
-                // nut_shadow
-                <Path d={"M " + (distance_above_nut + 5) + " 0 l 0 " + fb_width}
-                      attr={{
-                        stroke: '#c5a54e',
-                        'stroke-width': 2,
-                        opacity: '0.5'
-                      }}/>
-              ];
-
-            })()
-          }
-          {
-            // Frets:
-            (() => {
-              let elements = [];
-              let previous_d = 0;
-              for (let fret = 0; fret < total_frets; fret += 1) {
-                let fret_num = fret + 1;
-                let length = 1500;
-                let d = Math.round(length - (length / Math.pow(2, ((fret + 1) / 12))) + distance_above_nut);
-                let p = " M " + d + " 0 l 0 " + fb_width;
-
-                if (fret_num === 3) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
+    <Paper width={fretboard_length} height={fretboard_width + 50}>
+      <Set>
+        {
+          (() => {
+            return [
+              // background
+              <Rect x={-10} y={0} width={fb_length + 8} height={fb_width - 1} r={10}
+                    attr={{
+                      stroke: '#d7b14a',
+                      'stroke-width': '4',
+                      gradient: '90-#e1b94e-#ffdd83'
+                    }}/>,
+              // background_bottom_border
+              <Path d={"M 0 " + (fb_width - 1) + " l " + (fb_length - 7) + " 0"}
+                    attr={{stroke: '#be8b00', 'stroke-width': '3'}}/>,
+              // nut
+              <Rect x={distance_above_nut} y={0} width={5} height={fb_width}
+                    attr={{stroke: 'none', fill: '#444'}}/>,
+              // nut_shadow
+              <Path d={"M " + (distance_above_nut + 5) + " 0 l 0 " + fb_width}
+                    attr={{
+                      stroke: '#c5a54e',
+                      'stroke-width': 2,
+                      opacity: '0.5'
                     }}/>
-                  );
-                }
+            ];
 
-                if (fret_num === 5) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
+          })()
+        }
+        {
+          // Fret dots:
+          (() => {
+            let elements = [];
+            let previous_d = 0;
+            for (let fret = 0; fret < total_frets; fret += 1) {
+              let fret_num = fret + 1;
+              let length = 1500;
+              let d = Math.round(length - (length / Math.pow(2, ((fret + 1) / 12))) + distance_above_nut);
+              let p = " M " + d + " 0 l 0 " + fb_width;
 
-                if (fret_num === 7) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-
-                if (fret_num === 9) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-
-                if (fret_num === 12) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 4)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width - (fb_width / 4))}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-
-                if (fret_num === 15) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-
-                if (fret_num === 17) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-
-                if (fret_num === 19) {
-                  elements.push(
-                    <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
-                            r={fret_marker_radius} attr={{
-                      fill: fret_marker_color,
-                      stroke: 'none',
-                      opacity: fret_marker_opacity
-                    }}/>
-                  );
-                }
-                // bass_fret
-                elements.push(<Path d={p} attr={{stroke: '#444', 'stroke-width': 2}}/>);
-                // bass_fret_shadow
-                elements.push(<Path d={"M " + (d + 1) + " 0 l 0 " + fb_width}
-                                    attr={{stroke: '#222', 'stroke-width': 1}}/>);
-                // bass_fret_shadow_two
-                elements.push(<Path d={"M " + (d + 2) + " 0 l 0 " + fb_width} attr={{
-                  stroke: '#c5a54e',
-                  'stroke-width': 2,
-                  opacity: '0.5'
-                }}/>);
-                previous_d = d;
+              if (fret_num === 3) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
               }
-              return elements;
-            })()
-          }
-          {
-            (() => {
-              // Strings:
-              let elements = [];
-              let this_string_spacing = 12.5;
-              for (let i = 0; i < numberOfStrings; i++) {
-                elements.push(<Path d={"M 0 " + this_string_spacing + " l " + fb_length + " 0"}
-                                    attr={{stroke: '#888', 'stroke-width': 4}}/>);
-                elements.push(<Path d={"M 0 " + (this_string_spacing - 0.5) + " l " + fb_length + " 0"}
-                                    attr={{stroke: '#e2e2e2', 'stroke-width': 0.8}}/>);
-                this_string_spacing += string_spacing;
+
+              if (fret_num === 5) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
               }
-              return elements;
-            })()
-          }
-        </Set>
-        <Set>
-          {
-            (() => {
-              return drawNotes(scale, displayStyle);
-            })()
-          }
-        </Set>
-      </Paper>
-    </div>
+
+              if (fret_num === 7) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+
+              if (fret_num === 9) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+
+              if (fret_num === 12) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 4)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width - (fb_width / 4))}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+
+              if (fret_num === 15) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+
+              if (fret_num === 17) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+
+              if (fret_num === 19) {
+                elements.push(
+                  <Circle x={previous_d + (d - previous_d) / 2} y={(fb_width / 2)}
+                          r={fret_marker_radius} attr={{
+                    fill: fret_marker_color,
+                    stroke: 'none',
+                    opacity: fret_marker_opacity
+                  }}/>
+                );
+              }
+              // bass_fret
+              elements.push(<Path d={p} attr={{stroke: '#444', 'stroke-width': 2}}/>);
+              // bass_fret_shadow
+              elements.push(<Path d={"M " + (d + 1) + " 0 l 0 " + fb_width}
+                                  attr={{stroke: '#222', 'stroke-width': 1}}/>);
+              // bass_fret_shadow_two
+              elements.push(<Path d={"M " + (d + 2) + " 0 l 0 " + fb_width} attr={{
+                stroke: '#c5a54e',
+                'stroke-width': 2,
+                opacity: '0.5'
+              }}/>);
+              previous_d = d;
+            }
+            return elements;
+          })()
+        }
+        {
+          (() => {
+            // Strings:
+            let elements = [];
+            let this_string_spacing = 12.5;
+            for (let i = 0; i < numberOfStrings; i++) {
+              elements.push(<Path d={"M 0 " + this_string_spacing + " l " + fb_length + " 0"}
+                                  attr={{stroke: '#888', 'stroke-width': 4}}/>);
+              elements.push(<Path d={"M 0 " + (this_string_spacing - 0.5) + " l " + fb_length + " 0"}
+                                  attr={{stroke: '#e2e2e2', 'stroke-width': 0.8}}/>);
+              this_string_spacing += string_spacing;
+            }
+            return elements;
+          })()
+        }
+      </Set>
+      <Set>
+        {
+          (() => {
+            return drawNotes(scale, displayStyle);
+          })()
+        }
+      </Set>
+    </Paper>
   );
 };
 

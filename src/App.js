@@ -46,7 +46,7 @@ const App = () => {
       <Bass scale={scale} displayInstrument={displayInstrument} displayStyle={displayStyle}/>
 
       <PianoContainer>
-        <Piano scale={scale}/>
+        <Piano scale={scale} displayStyle={displayStyle} />
       </PianoContainer>
 
       <center>
