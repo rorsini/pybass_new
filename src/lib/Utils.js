@@ -62,7 +62,8 @@ export const modes = {
   'Blues Scale':      '0,3,5,6,7,10',
   'Minor Pentatonic': '0,3,5,7,10',
   'Harmonic Minor': '0,2,3,5,7,8,11',
-  'Phrygian Dominant': '0,1,4,5,7,8,10'
+  'Phrygian Dominant': '0,1,4,5,7,8,10',
+  'Root only': '0'
 };
 
 export const note_names = {
