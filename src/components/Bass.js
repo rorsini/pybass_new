@@ -206,11 +206,14 @@ const Bass = ({scale, displayInstrument, displayStyle}) => {
             stroke_color = note_name_root_stroke_color;
           }
         }
+        console.log(note_label)
+        let display_note = String(note_label).replace('A#','Bb');
+        display_note = String(note_label).replace('D#','Eb');
         elements.push(drawNote(
           key_index,
           x_coord,
           y_coord,
-          String(note_label),
+          String(display_note),
           note_color,
           text_color,
           scale_degree,
