@@ -20,6 +20,9 @@ export const getMinorChord = (note) => {
 };
 
 export const getColor = (note, scale) => {
+
+  console.log(`in getColor - note: ${note} scale: ${scale}`, note, scale);
+
   let notes = note;
 
   if (typeof note == 'string') {

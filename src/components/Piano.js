@@ -22,8 +22,8 @@ const Piano = ({scale, displayStyle}) => {
   }
   // scale = chord_tones;
 
-  console.log("displayStyle:");
-  console.log(displayStyle);
+  //console.log("displayStyle:");
+  //console.log(displayStyle);
   chord_tones = [];
   for (scale_index in scale) {
     if (displayStyle === "chord") {

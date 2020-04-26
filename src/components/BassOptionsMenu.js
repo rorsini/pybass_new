@@ -60,10 +60,10 @@ export default function BassOptionsMenu(props) {
   const [style, setStyle] = React.useState('notes')
   const [instrument, setInstrument] = React.useState('guitar');
 
-  console.log("mode: " + mode);
-  console.log("note: " + note);
-  console.log("style: " + style);
-  console.log("instrument: " + instrument);
+  //console.log("mode: " + mode);
+  //console.log("note: " + note);
+  //console.log("style: " + style);
+  //console.log("instrument: " + instrument);
 
   props.setDisplayStyle(style);
   props.setDisplayInstrument(instrument);
